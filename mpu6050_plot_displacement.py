@@ -147,7 +147,7 @@ class PlotRecAccGyro():
 			gyro_legends = ['Gyro_x', 'Gyro_y', 'Gyro_z']
 			disp_legends = ['Disp_x', 'Disp_y', 'Disp_z']
 			if (1 in acc_n_plots) and (1 in gyro_n_plots) and (1 in disp_n_plots):
-				fig, ax = plt.subplots(3,1, figsize = (10,7))
+				fig, ax = plt.subplots(3,1, figsize = (10,7), projection='3d')
 				ax[0].set_xlim(50,0)
 				ax[1].set_xlim(50,0)
 				ax[0].set_ylim([-30,30]) 
@@ -157,9 +157,9 @@ class PlotRecAccGyro():
 					ax[i].set_ylabel(y_axis_label)
 					ax[i].set_xlabel('Latest 50 readings')
 					ax[i].grid()
-				acc_plot_list = [ax[0].plot(time_values, acc_values[0], label = acc_legends[i])[0] if j==1 else 0 for i,j in enumerate(acc_n_plots)]
-				gyro_plot_list = [ax[1].plot(time_values, gyro_values[0], label = gyro_legends[i])[0] if j==1 else 0 for i,j in enumerate(gyro_n_plots)]
-				disp_plot_list = [ax[2].plot(time_values, disp_values[0], label = disp_legends[i])[0] if j==1 else 0 for i,j in enumerate(disp_n_plots)]
+				acc_plot_list = [ax[0].plot3D(time_values, acc_values[0], zeros, label = acc_legends[i])[0] if j==1 else 0 for i,j in enumerate(acc_n_plots)]
+				gyro_plot_list = [ax[1].plot3D(time_values, gyro_values[0], zeros, label = gyro_legends[i])[0] if j==1 else 0 for i,j in enumerate(gyro_n_plots)]
+				disp_plot_list = [ax[2].plot3D(disp_values[0], disp_values[1], disp_values[2], label = disp_legends[i])[0] if j==1 else 0 for i,j in enumerate(disp_n_plots)]
 				ax[0].legend(loc='upper left', fancybox=True, shadow=True)
 				ax[1].legend(loc='upper left', fancybox=True, shadow=True)
 				ax[2].legend(loc='upper left', fancybox=True, shadow=True)
@@ -180,7 +180,7 @@ class PlotRecAccGyro():
 					ax.set_ylim([-300,300])
 					ax.grid()
 				else:
-					disp_plot_list = [ax.plot3D(disp_values[0], disp_values[1], disp_values[1], label = disp_legends[i])[0] if j==1 else 0 for i,j in enumerate(disp_n_plots)]
+					disp_plot_list = [ax.plot3D(disp_values[0], disp_values[1], disp_values[2], label = disp_legends[i])[0] if j==1 else 0 for i,j in enumerate(disp_n_plots)]
 					ax.set_title('Displacement')
 					ax.set_xlabel('Readings')
 					ax.set_ylabel('Displacement [m]')
